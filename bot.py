@@ -74,6 +74,19 @@ def addadmin(m):
         bot.send_message(m.chat.id, 'Отправьте id юзера, которого хотите добавить в администраторы бота (id юзера можно '+
                          'получить, переслав его сообщение боту @ForwardInfoBot).')
    
+   
+@bot.message_handler(commands=['deladmin'])
+def addadmin(m):
+   x=users.find_one({'id':m.from_user.id})
+   if x['id']==682723695:
+        users.update_one({'id':m.from_user.id},{'$set':{'removingadmin':1}})
+        kb=types.ReplyKeyboardMarkup(resize_keyboard=True)
+        kb.add(types.KeyboardButton('❌Отмена'))
+        bot.send_message(m.chat.id, 'Отправьте id юзера, которого хотите удалить из администраторов бота (id юзера можно '+
+                         'получить, переслав его сообщение боту @ForwardInfoBot).')
+   
+   
+   
 @bot.message_handler(commands=['addchannel'])
 def addchannel(m):
     x=users.find_one({'id':m.from_user.id})
